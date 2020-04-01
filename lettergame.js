@@ -48,7 +48,9 @@ document.addEventListener('keydown', keyEv => {
     window.setTimeout(() => {
       letter.style.color = randomColor();
       letter.textContent = l;
-      letter.style.fontSize = ch * 1 + 'px'; 
+      let scale = l == 'Q' ? 0.9 : 1.0;
+      console.log(scale);
+      letter.style.fontSize = ch * scale + 'px'; 
     }, 200);
   }
 });
