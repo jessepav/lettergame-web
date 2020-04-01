@@ -24,24 +24,30 @@ window.addEventListener('resize', layoutElements);
 window.addEventListener('load', () => {
   layoutElements();
   window.setInterval(() => {
-    letter.style.color = randomColor();
+    if (letter)
+      letter.style.color = randomColor();
   },
   3500);
 });
 
-function toggleAnimation() {
-  let running = window.getComputedStyle(background).getPropertyValue('animation-play-state') == 'running';
+function toggleAnimation(el) {
+  let running = window.getComputedStyle(el).getPropertyValue('animation-play-state') == 'running';
   if (running)
-    background.style.animationPlayState = 'paused';
+    el.style.animationPlayState = 'paused';
   else
-    background.style.animationPlayState = 'running';
+    el.style.animationPlayState = 'running';
 }
 
 function toggleFullScreen() {
-  if (document.fullscreenElement)
+  if (document.fullscreenElement) {
     document.exitFullscreen();
-  else
+    holder.style.cursor = 'default';
+    navigator.keyboard.unlock();
+  } else {
     holder.requestFullscreen();
+    holder.style.cursor = 'none';
+    navigator.keyboard.lock();
+  }
 }
 
 const letterRegexp = /^[A-Za-z0-9]$/;
@@ -52,13 +58,18 @@ document.addEventListener('keydown', keyEv => {
   
   if (keyEv.code == 'Digit1' && keyEv.ctrlKey && keyEv.shiftKey) {
     keyEv.preventDefault();
-    toggleAnimation();
+    toggleAnimation(background);
     return;
   } else if (keyEv.code == 'Digit2' && keyEv.ctrlKey && keyEv.shiftKey) {
     keyEv.preventDefault();
-    toggleFullScreen();
+    if (letter)
+      letter.classList.toggle('animate');
     return;
   } else if (keyEv.code == 'Digit3' && keyEv.ctrlKey && keyEv.shiftKey) {
+    keyEv.preventDefault();
+    toggleFullScreen();
+    return;
+  } else if (keyEv.code == 'Digit4' && keyEv.ctrlKey && keyEv.shiftKey) {
     keyEv.preventDefault();
     background.classList.toggle('plain-background');
     return;
@@ -68,6 +79,7 @@ document.addEventListener('keydown', keyEv => {
     if (!letter) {
       letter = document.createElement("div");
       letter.classList.add('single-letter');
+      letter.classList.add('animate');
       letterWrapper.appendChild(letter);
     }
     let key = keyEv.key.toUpperCase();
