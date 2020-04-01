@@ -24,7 +24,8 @@ window.addEventListener('resize', layoutElements);
 window.addEventListener('load', layoutElements);
 
 function toggleAnimation() {
-  if (background.style.animationPlayState == 'running')
+  let running = window.getComputedStyle(background).getPropertyValue('animation-play-state') == 'running';
+  if (running)
     background.style.animationPlayState = 'paused';
   else
     background.style.animationPlayState = 'running';
@@ -42,11 +43,12 @@ const letterRegexp = /^[A-Za-z0-9]$/;
 document.addEventListener('keydown', keyEv => {
   if (keyEv.repeat)
     return;
-  if (keyEv.key == 'a' && keyEv.ctrlKey) {
+  let key = keyEv.key.toUpperCase();
+  if (key == 'A' && keyEv.ctrlKey && keyEv.shiftKey) {
     keyEv.preventDefault();
     toggleAnimation();
     return;
-  } else if (keyEv.key == 'f' && keyEv.ctrlKey) {
+  } else if (key == 'F' && keyEv.ctrlKey && keyEv.shiftKey) {
     keyEv.preventDefault();
     toggleFullScreen();
     return;
@@ -58,12 +60,12 @@ document.addEventListener('keydown', keyEv => {
       letter.classList.add('single-letter');
       letterWrapper.appendChild(letter);
     }
-    let l = keyEv.key.toUpperCase();
+    
     letter.style.fontSize = ch * 0.1 + 'px';
     window.setTimeout(() => {
       letter.style.color = randomColor();
-      letter.textContent = l;
-      let scale = l == 'Q' ? 0.9 : 1.0;
+      letter.textContent = key;
+      let scale = key == 'Q' ? 0.9 : 1.0;
       console.log(scale);
       letter.style.fontSize = ch * scale + 'px'; 
     }, 200);
