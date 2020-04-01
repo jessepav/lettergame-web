@@ -20,6 +20,12 @@
   transform: scale(2.5) translate(-15%, -10%) rotate(0deg);
 }
 
+#background.plain-background {
+  background: white;
+  filter: none;
+  transform: none;
+}
+
 .animate {
   animation-name: background;
   animation-duration: 60s;
@@ -66,5 +72,5 @@
   font-family: sans-serif;
   text-shadow: 0px 0px 10px #272d47;
   transition-property: color, font-size;
-  transition-duration: 200ms, 200ms;
+  transition-duration: 1000ms, 200ms;
 }

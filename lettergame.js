@@ -21,7 +21,13 @@ function layoutElements() {
 }
 
 window.addEventListener('resize', layoutElements);
-window.addEventListener('load', layoutElements);
+window.addEventListener('load', () => {
+  layoutElements();
+  window.setInterval(() => {
+    letter.style.color = randomColor();
+  },
+  3500);
+});
 
 function toggleAnimation() {
   let running = window.getComputedStyle(background).getPropertyValue('animation-play-state') == 'running';
@@ -43,14 +49,18 @@ const letterRegexp = /^[A-Za-z0-9]$/;
 document.addEventListener('keydown', keyEv => {
   if (keyEv.repeat)
     return;
-  let key = keyEv.key.toUpperCase();
-  if (key == 'A' && keyEv.ctrlKey && keyEv.shiftKey) {
+  
+  if (keyEv.code == 'Digit1' && keyEv.ctrlKey && keyEv.shiftKey) {
     keyEv.preventDefault();
     toggleAnimation();
     return;
-  } else if (key == 'F' && keyEv.ctrlKey && keyEv.shiftKey) {
+  } else if (keyEv.code == 'Digit2' && keyEv.ctrlKey && keyEv.shiftKey) {
     keyEv.preventDefault();
     toggleFullScreen();
+    return;
+  } else if (keyEv.code == 'Digit3' && keyEv.ctrlKey && keyEv.shiftKey) {
+    keyEv.preventDefault();
+    background.classList.toggle('plain-background');
     return;
   }
 
@@ -60,7 +70,7 @@ document.addEventListener('keydown', keyEv => {
       letter.classList.add('single-letter');
       letterWrapper.appendChild(letter);
     }
-    
+    let key = keyEv.key.toUpperCase();
     letter.style.fontSize = ch * 0.1 + 'px';
     window.setTimeout(() => {
       letter.style.color = randomColor();
