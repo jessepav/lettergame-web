@@ -76,6 +76,7 @@ document.addEventListener('keydown', keyEv => {
   }
 
   if (letterRegexp.test(keyEv.key)) {
+    keyEv.preventDefault();
     if (!letter) {
       letter = document.createElement("div");
       letter.classList.add('single-letter');
