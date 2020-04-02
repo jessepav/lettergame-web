@@ -50,6 +50,22 @@ function toggleFullScreen() {
   }
 }
 
+let sound = new Howl({
+  src: ['lettergame-sounds.mp3'],
+  sprite: {
+    'boing' : [108, 965],
+    'note1' : [1621, 996],
+    'note2' : [3185, 1106],
+    'note3' : [4854, 1168],
+    'note4' : [6538, 988],
+    'note5' : [8053, 1094]
+  }
+});
+
+let soundEnabled = true;
+
+const notes = ['note1', 'note2', 'note3', 'note4', 'note5'];
+
 const letterRegexp = /^[A-Za-z0-9]$/;
 
 document.addEventListener('keydown', keyEv => {
@@ -73,6 +89,10 @@ document.addEventListener('keydown', keyEv => {
     keyEv.preventDefault();
     background.classList.toggle('plain-background');
     return;
+  } else if (keyEv.code == 'Digit5' && keyEv.ctrlKey && keyEv.shiftKey) {
+    keyEv.preventDefault();
+    soundEnabled = !soundEnabled;
+    return;
   }
 
   if (letterRegexp.test(keyEv.key)) {
@@ -83,6 +103,8 @@ document.addEventListener('keydown', keyEv => {
       letterWrapper.appendChild(letter);
     }
     let key = keyEv.key.toUpperCase();
+    if (soundEnabled)
+      sound.play(notes[key.charCodeAt(0) % notes.length]);
     letter.style.fontSize = ch * 0.1 + 'px';
     window.setTimeout(() => {
       letter.style.color = randomColor();
@@ -91,5 +113,10 @@ document.addEventListener('keydown', keyEv => {
       console.log(scale);
       letter.style.fontSize = ch * scale + 'px'; 
     }, 200);
+  } else if (soundEnabled &&
+             !keyEv.code.startsWith("Shift") && !keyEv.code.startsWith("Alt") &&  !keyEv.code.startsWith("Control") &&
+             !keyEv.ctrlKey && !keyEv.shiftKey && !keyEv.altKey) {
+    sound.play('boing');
   }
 });
+
