@@ -22,7 +22,6 @@ function layoutElements() {
 
 window.addEventListener('resize', layoutElements);
 window.addEventListener('load', () => {
-  layoutElements();
   window.setInterval(() => {
     if (letter)
       letter.style.color = randomColor();
@@ -62,6 +61,12 @@ let sound = new Howl({
   }
 });
 
+sound.once('load', ev => {
+  const loader = document.getElementById("loader");
+  loader.parentNode.removeChild(loader);
+  holder.style.display = 'block';
+  layoutElements();
+});
 let soundEnabled = true;
 
 const notes = ['note1', 'note2', 'note3', 'note4', 'note5'];
@@ -75,27 +80,23 @@ document.addEventListener('keydown', keyEv => {
   if (keyEv.code == 'Digit1' && keyEv.ctrlKey && keyEv.shiftKey) {
     keyEv.preventDefault();
     toggleAnimation(background);
-    return;
   } else if (keyEv.code == 'Digit2' && keyEv.ctrlKey && keyEv.shiftKey) {
     keyEv.preventDefault();
     if (letter)
       letter.classList.toggle('animate');
-    return;
   } else if (keyEv.code == 'Digit3' && keyEv.ctrlKey && keyEv.shiftKey) {
     keyEv.preventDefault();
     toggleFullScreen();
-    return;
   } else if (keyEv.code == 'Digit4' && keyEv.ctrlKey && keyEv.shiftKey) {
     keyEv.preventDefault();
     background.classList.toggle('plain-background');
-    return;
   } else if (keyEv.code == 'Digit5' && keyEv.ctrlKey && keyEv.shiftKey) {
     keyEv.preventDefault();
     soundEnabled = !soundEnabled;
-    return;
-  }
-
-  if (letterRegexp.test(keyEv.key)) {
+  } else if (keyEv.code == 'Backspace') {
+      if (letter)
+        letter.textContent = '';
+  } else if (!keyEv.ctrlKey && !keyEv.shiftKey && !keyEv.altKey && letterRegexp.test(keyEv.key)) {
     if (!letter) {
       letter = document.createElement("div");
       letter.classList.add('single-letter');
@@ -104,7 +105,7 @@ document.addEventListener('keydown', keyEv => {
     }
     let key = keyEv.key.toUpperCase();
     if (soundEnabled)
-      sound.play(notes[key.charCodeAt(0) % notes.length]);
+      sound.play(notes[Math.floor(Math.random() * notes.length)]);
     letter.style.fontSize = ch * 0.1 + 'px';
     window.setTimeout(() => {
       letter.style.color = randomColor();

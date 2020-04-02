@@ -1,6 +1,11 @@
 @charset "UTF-8";
 
+html {
+  font-family: sans-serif;
+}
+
 #holder {
+  display: none;
   position: absolute;
   border: 1px solid black;
   overflow: hidden;
@@ -89,5 +94,37 @@
   }
   to {
     transform: rotate(7deg);
+  }
+}
+
+#loader {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 10;
+  background-color: yellow;
+}
+
+#loader > div {
+  display: inline-block;
+  color: #6a6ddf;
+  font-size: 20px;
+  animation-name: loader-grow;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+}
+
+@keyframes loader-grow {
+  from {
+    font-size: 20px;
+  }
+
+  to {
+    font-size: 90px;
   }
 }
