@@ -20,8 +20,11 @@ function layoutElements() {
         letter.style.fontSize = ch * 1 + 'px';
 }
 
-let sprites = ['elly', 'paw-patrol', 'pocoyo', 'ami', 'rabbit', 'purple-duck']
+let sprites = ['elly', 'paw-patrol', 'pocoyo', 'ami', 'rabbit',
+               'purple-duck', 'yellow-duck', 'green-duck',
+               'elephant', 'mouse', 'pig']
                .map(x => `img/${x}.png`);
+               
 let spriteCntr = Math.floor(Math.random() * sprites.length);
 
 function startNewSprite() {
