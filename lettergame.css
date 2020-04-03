@@ -20,46 +20,10 @@ html {
   background-image: url(lettergame-background.jpg);
   background-size: cover;
   z-index: -1;
-  filter: saturate(30%) brightness(110%);
-  transform-origin: 50% 50%;
-  transform: scale(2.5) translate(-15%, -10%) rotate(0deg);
 }
 
 #background.plain-background {
   background: white;
-  filter: none;
-  transform: none;
-}
-
-#background.animate {
-  animation-name: background;
-  animation-duration: 60s;
-  animation-iteration-count: infinite;
-  animation-direction: normal;
-  animation-timing-function: ease-in-out;
-  animation-play-state: paused;
-}
-
-@keyframes background {
-  from {
-    transform: scale(2.5) translate(-15%, -10%) rotate(0deg);
-  }
-
-  25% {
-    transform: scale(2.8) translate(9%, -7%) rotate(20deg);
-  }
-
-  50% {
-    transform: scale(1.9) translate(9%, 14%) rotate(10deg);
-  }
-
-  75% {
-    transform: scale(2.3) translate(-12%, 2%) rotate(-10deg);
-  }
-
-  to {
-    transform: scale(2.5) translate(-15%, -10%) rotate(0deg);
-  }
 }
 
 #letter-wrapper {

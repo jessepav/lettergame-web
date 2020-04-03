@@ -86,10 +86,7 @@ document.addEventListener('keydown', keyEv => {
                        keyEv.code.startsWith("Shift") || keyEv.code.startsWith("Alt") ||
                        keyEv.code.startsWith("Control") || keyEv.code.startsWith("Meta");
 
-    if (keyEv.code == 'Digit1' && keyEv.ctrlKey && keyEv.shiftKey) {
-        keyEv.preventDefault();
-        toggleAnimation(background);
-    } else if (keyEv.code == 'Digit2' && keyEv.ctrlKey && keyEv.shiftKey) {
+    if (keyEv.code == 'Digit2' && keyEv.ctrlKey && keyEv.shiftKey) {
         keyEv.preventDefault();
         if (letter)
             letter.classList.toggle('animate');
@@ -129,7 +126,7 @@ document.addEventListener('keydown', keyEv => {
         else if (fullscreen || !specialKey)
             sound.play('boing');
     }
-    
+
     if (fullscreen)
         keyEv.preventDefault();
 });
