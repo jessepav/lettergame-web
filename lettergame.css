@@ -17,7 +17,7 @@ html {
   right: 0px;
   top: 0px;
   bottom: 0px;
-  background-image: url(lettergame-background.jpg);
+  background-image: url(img/lettergame-background.jpg);
   background-size: cover;
   z-index: -1;
 }
@@ -97,9 +97,10 @@ html {
 .sprite-img {
     position: absolute;
     animation-name: rotate-sprite, circle-screen;
-    animation-duration: 5s, 60s;
-    animation-iteration-count: infinite;
+    animation-duration: 5s, 45s;
+    animation-iteration-count: infinite, 1;
     animation-timing-function: linear, ease-in-out;
+    animation-fill-mode: both;
 }
 
 @keyframes rotate-sprite {
@@ -113,10 +114,10 @@ html {
 
 @keyframes circle-screen {
     0% {
-        left: 20%; top: 50%;
+        left: 20%; top: 50%; opacity: 0;
     }
     12.5% {
-        left: 27%; top: 27%;
+        left: 27%; top: 27%; opacity: 1;
     }
     25% {
         left: 50%; top: 20%;
@@ -134,10 +135,10 @@ html {
         left: 50%; top: 80%;
     }
     87.5% {
-        left: 27%; top: 73%;
+        left: 27%; top: 73%; opacity: 1;
     }
     100% {
-        left: 20%; top: 50%;
+        left: 20%; top: 50%; opacity: 0;
     }
 
 

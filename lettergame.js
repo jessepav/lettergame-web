@@ -20,14 +20,32 @@ function layoutElements() {
         letter.style.fontSize = ch * 1 + 'px';
 }
 
+let sprites = ['img/elly.png', 'img/paw-patrol.png', 'img/pocoyo.png'];
+let spriteCntr = 0;
+
+function startNewSprite() {
+    let img = document.createElement("img");
+    img.src = sprites[spriteCntr];
+    img.height = ch / 5;
+    spriteCntr = (spriteCntr + 1) % sprites.length;
+    background.appendChild(img);
+    img.classList.add('sprite-img');
+    img.addEventListener("animationend", ev => {
+        img.remove();
+    });
+}
+
 window.addEventListener('resize', layoutElements);
 window.addEventListener('load', () => {
     window.setInterval(() => {
         if (letter)
             letter.style.color = randomColor();
     },
-        3500);
+    3500);
+    window.setInterval(startNewSprite, 60000);
 });
+
+
 
 function toggleAnimation(el) {
     let running = window.getComputedStyle(el).getPropertyValue('animation-play-state') == 'running';
@@ -69,7 +87,7 @@ const notes = ['note1', 'note2', 'note3', 'note4', 'note5'];
 
 sound.once('load', ev => {
     const loader = document.getElementById("loader");
-    loader.parentNode.removeChild(loader);
+    loader.remove();
     holder.style.display = 'block';
     layoutElements();
 });
