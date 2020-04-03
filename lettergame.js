@@ -21,7 +21,7 @@ function layoutElements() {
 
 let sprites = ['elly', 'paw-patrol', 'pocoyo', 'ami', 'rabbit',
                'purple-duck', 'yellow-duck', 'green-duck',
-               'elephant', 'mouse', 'pig']
+               'elephant', 'mouse', 'pig', 'mama']
                .map(x => `img/${x}.png`);
                
 let spriteCntr = Math.floor(Math.random() * sprites.length);
