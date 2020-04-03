@@ -75,6 +75,7 @@ html {
 #loader > div {
   display: inline-block;
   color: #6a6ddf;
+  font-family: "Comic Sans MS", cursive, sans-serif;
   font-size: 20px;
   animation-name: loader-grow;
   animation-duration: 10s;
@@ -91,4 +92,53 @@ html {
   to {
     font-size: 90px;
   }
+}
+
+.sprite-img {
+    position: absolute;
+    animation-name: rotate-sprite, circle-screen;
+    animation-duration: 5s, 60s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear, ease-in-out;
+}
+
+@keyframes rotate-sprite {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(359deg);
+    }
+}
+
+@keyframes circle-screen {
+    0% {
+        left: 20%; top: 50%;
+    }
+    12.5% {
+        left: 27%; top: 27%;
+    }
+    25% {
+        left: 50%; top: 20%;
+    }
+    37.5% {
+        left: 73%; top: 27%;
+    }
+    50% {
+        left: 80%; top: 50%;
+    }
+    62.5% {
+        left: 73%; top: 73%;
+    }
+    75% {
+        left: 50%; top: 80%;
+    }
+    87.5% {
+        left: 27%; top: 73%;
+    }
+    100% {
+        left: 20%; top: 50%;
+    }
+
+
 }
