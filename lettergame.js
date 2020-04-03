@@ -129,4 +129,7 @@ document.addEventListener('keydown', keyEv => {
         else if (fullscreen || !specialKey)
             sound.play('boing');
     }
+    
+    if (fullscreen)
+        keyEv.preventDefault();
 });
