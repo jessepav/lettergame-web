@@ -3,7 +3,6 @@ let background = document.getElementById("background");
 let letterWrapper = document.getElementById("letter-wrapper");
 let letter = null;
 
-
 let cw, ch;  // dimensions of our holder
 
 function layoutElements() {
@@ -38,19 +37,6 @@ function startNewSprite() {
         img.remove();
     });
 }
-
-window.addEventListener('resize', layoutElements);
-window.addEventListener('load', () => {
-    window.setInterval(() => {
-        if (letter)
-            letter.style.color = randomColor();
-    },
-    3500);
-    window.setTimeout(() => {
-        startNewSprite();
-        window.setInterval(startNewSprite, 60000);
-    }, 15000);
-});
 
 function toggleAnimation(el) {
     let running = window.getComputedStyle(el).getPropertyValue('animation-play-state') == 'running';
@@ -89,13 +75,6 @@ let sound = new Howl({
     }
 });
 const notes = ['note1', 'note2', 'note3', 'note4', 'note5'];
-
-sound.once('load', ev => {
-    const loader = document.getElementById("loader");
-    loader.remove();
-    holder.style.display = 'block';
-    layoutElements();
-});
 
 let soundEnabled = true;
 
@@ -153,3 +132,26 @@ document.addEventListener('keydown', keyEv => {
     if (fullscreen)
         keyEv.preventDefault();
 });
+
+window.addEventListener('resize', layoutElements);
+window.addEventListener('load', () => {
+    window.setInterval(() => {
+        if (letter)
+            letter.style.color = randomColor();
+    },
+    3500);
+    window.setTimeout(() => {
+        startNewSprite();
+        window.setInterval(startNewSprite, 60000);
+    }, 15000);
+});
+
+sound.once('load', ev => {
+    const loader = document.getElementById("loader");
+    loader.remove();
+    holder.style.display = 'block';
+    layoutElements();
+});
+
+// Perhaps this will popup the keyboard on mobile browsers...
+holder.addEventListener('click', ev => { holder.focus(); });
