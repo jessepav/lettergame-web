@@ -20,8 +20,9 @@ function layoutElements() {
         letter.style.fontSize = ch * 1 + 'px';
 }
 
-let sprites = ['img/elly.png', 'img/paw-patrol.png', 'img/pocoyo.png'];
-let spriteCntr = 0;
+let sprites = ['elly', 'paw-patrol', 'pocoyo', 'ami', 'rabbit', 'purple-duck']
+               .map(x => `img/${x}.png`);
+let spriteCntr = Math.floor(Math.random() * sprites.length);
 
 function startNewSprite() {
     let img = document.createElement("img");
@@ -42,10 +43,11 @@ window.addEventListener('load', () => {
             letter.style.color = randomColor();
     },
     3500);
-    window.setInterval(startNewSprite, 60000);
+    window.setTimeout(() => {
+        startNewSprite();
+        window.setInterval(startNewSprite, 60000);
+    }, 15000);
 });
-
-
 
 function toggleAnimation(el) {
     let running = window.getComputedStyle(el).getPropertyValue('animation-play-state') == 'running';
