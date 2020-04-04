@@ -19,11 +19,6 @@ function layoutElements() {
         letter.style.fontSize = ch * 1 + 'px';
 }
 
-let sprites = ['elly', 'paw-patrol', 'pocoyo', 'ami', 'rabbit',
-               'purple-duck', 'yellow-duck', 'green-duck',
-               'elephant', 'mouse', 'pig', 'mama']
-               .map(x => `img/${x}.png`);
-               
 let spriteCntr = Math.floor(Math.random() * sprites.length);
 
 function startNewSprite() {
@@ -62,21 +57,7 @@ function toggleFullScreen() {
     }
 }
 
-let sound = new Howl({
-    src: ['lettergame-sounds.mp3'],
-    sprite: {
-        'boing': [108, 965],
-        'googoo': [9692, 1449],
-        'note1': [1621, 996],
-        'note2': [3185, 1106],
-        'note3': [4854, 1168],
-        'note4': [6538, 988],
-        'note5': [8053, 1094]
-    }
-});
-const notes = ['note1', 'note2', 'note3', 'note4', 'note5'];
-
-let soundEnabled = true;
+let sound = new Howl(howlParams);
 
 const letterRegexp = /^[A-Za-z0-9]$/;
 
@@ -88,7 +69,10 @@ document.addEventListener('keydown', keyEv => {
                        keyEv.code.startsWith("Shift") || keyEv.code.startsWith("Alt") ||
                        keyEv.code.startsWith("Control") || keyEv.code.startsWith("Meta");
 
-    if (keyEv.code == 'Digit2' && keyEv.ctrlKey && keyEv.shiftKey) {
+    if (keyEv.code == 'Digit1' && keyEv.ctrlKey && keyEv.shiftKey) {
+        keyEv.preventDefault();
+        startNewSprite();
+    } else if (keyEv.code == 'Digit2' && keyEv.ctrlKey && keyEv.shiftKey) {
         keyEv.preventDefault();
         if (letter)
             letter.classList.toggle('animate');
@@ -124,9 +108,9 @@ document.addEventListener('keydown', keyEv => {
         }, 200);
     } else if (soundEnabled) {
         if (keyEv.code == 'Space')
-            sound.play('googoo');
+            sound.play(spacebarSound);
         else if (fullscreen || !specialKey)
-            sound.play('boing');
+            sound.play(otherSound);
     }
 
     if (fullscreen)
@@ -152,6 +136,3 @@ sound.once('load', ev => {
     holder.style.display = 'block';
     layoutElements();
 });
-
-// Perhaps this will popup the keyboard on mobile browsers...
-holder.addEventListener('click', ev => { holder.focus(); });
