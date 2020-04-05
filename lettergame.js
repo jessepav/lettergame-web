@@ -69,6 +69,8 @@ document.addEventListener('keydown', keyEv => {
                        keyEv.code.startsWith("Shift") || keyEv.code.startsWith("Alt") ||
                        keyEv.code.startsWith("Control") || keyEv.code.startsWith("Meta");
 
+    const mappedSound = keySoundMap.get(keyEv.code); // may be undefined
+
     if (keyEv.code == 'Digit1' && keyEv.ctrlKey && keyEv.shiftKey) {
         keyEv.preventDefault();
         startNewSprite();
@@ -96,8 +98,12 @@ document.addEventListener('keydown', keyEv => {
             letterWrapper.appendChild(letter);
         }
         let key = keyEv.key.toUpperCase();
-        if (soundEnabled)
-            sound.play(notes[Math.floor(Math.random() * notes.length)]);
+        if (soundEnabled) {
+            if (mappedSound)
+                sound.play(mappedSound);
+            else
+                sound.play(notes[Math.floor(Math.random() * notes.length)]);
+        }
         letter.style.fontSize = ch * 0.1 + 'px';
         window.setTimeout(() => {
             letter.style.color = randomColor();
@@ -107,9 +113,9 @@ document.addEventListener('keydown', keyEv => {
             letter.style.fontSize = ch * scale + 'px';
         }, 200);
     } else if (soundEnabled) {
-        if (keyEv.code == 'Space')
-            sound.play(spacebarSound);
-        else if (fullscreen || !specialKey)
+        if (mappedSound)
+            sound.play(mappedSound);
+        else if (!specialKey)
             sound.play(otherSound);
     }
 
