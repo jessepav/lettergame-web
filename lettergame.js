@@ -61,9 +61,16 @@ let sound = new Howl(howlParams);
 
 const letterRegexp = /^[A-Za-z0-9]$/;
 
+let lastKeyHitTime = performance.now();
+
 document.addEventListener('keydown', keyEv => {
+    // We may need to debounce manually, since keyEv.repeat fails on certain keyboards
+    let kht = performance.now();
     if (keyEv.repeat)
         return;
+    else if (kht - lastKeyHitTime < 300)
+        return;
+    lastKeyHitTime = kht;
 
     const specialKey = keyEv.ctrlKey || keyEv.shiftKey || keyEv.altKey || keyEv.metaKey ||
                        keyEv.code.startsWith("Shift") || keyEv.code.startsWith("Alt") ||
