@@ -64,19 +64,22 @@ const letterRegexp = /^[A-Za-z0-9]$/;
 let lastKeyHitTime = performance.now();
 
 document.addEventListener('keydown', keyEv => {
-    // We may need to debounce manually, since keyEv.repeat fails on certain keyboards
-    let kht = performance.now();
     if (keyEv.repeat)
         return;
-    else if (kht - lastKeyHitTime < 300)
-        return;
-    lastKeyHitTime = kht;
-
+    
     const specialKey = keyEv.ctrlKey || keyEv.shiftKey || keyEv.altKey || keyEv.metaKey ||
                        keyEv.code.startsWith("Shift") || keyEv.code.startsWith("Alt") ||
                        keyEv.code.startsWith("Control") || keyEv.code.startsWith("Meta");
 
     const mappedSound = keySoundMap.get(keyEv.code); // may be undefined
+
+    // We may need to debounce manually, since keyEv.repeat fails on certain keyboards
+    if (mappedSound != undefined || !specialKey) {  // basically anything that might make a sound
+        let kht = performance.now();
+        if (kht - lastKeyHitTime < 300)
+            return;
+        lastKeyHitTime = kht;
+    }
 
     if (keyEv.code == 'Digit1' && keyEv.ctrlKey && keyEv.shiftKey) {
         keyEv.preventDefault();
