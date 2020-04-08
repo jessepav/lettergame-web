@@ -23,14 +23,20 @@ let spriteCntr = Math.floor(Math.random() * sprites.length);
 
 function startNewSprite() {
     let img = document.createElement("img");
-    img.src = sprites[spriteCntr];
-    img.height = ch / 5;
+    let spriteName = sprites[spriteCntr];
     spriteCntr = (spriteCntr + 1) % sprites.length;
+    img.src = spriteName;
+    img.height = ch / 5;
     background.appendChild(img);
     img.classList.add('sprite-img');
     img.addEventListener("animationend", ev => {
         img.remove();
     });
+    if (soundEnabled && spriteSoundMap.has(spriteName)) {
+        window.setTimeout(() => {
+            sound.play(spriteSoundMap.get(spriteName));
+        }, 2000);
+    }
 }
 
 function toggleAnimation(el) {

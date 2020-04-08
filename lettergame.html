@@ -31,6 +31,9 @@
         'purple-duck', 'yellow-duck', 'green-duck',
         'elephant', 'mouse', 'pig', 'mama'
     ].map(x => `img/${x}.png`);
+    let spriteSoundMap = new Map([
+        ['mama', 'googoo']
+    ].map(([name, sound]) => [`img/${name}.png`, sound]));
   </script>
   <script defer src="lettergame.js"></script>
 </head>
