@@ -68,6 +68,7 @@ let sound = new Howl(howlParams);
 const letterRegexp = /^[A-Za-z0-9]$/;
 
 let lastKeyHitTime = performance.now();
+let letterUppercase = false;
 
 document.addEventListener('keydown', keyEv => {
     if (keyEv.repeat)
@@ -113,7 +114,9 @@ document.addEventListener('keydown', keyEv => {
             letter.classList.add('animate');
             letterWrapper.appendChild(letter);
         }
-        let key = keyEv.key.toUpperCase();
+        letterUppercase = !letterUppercase;
+        let key = keyEv.key;
+        key = letterUppercase ? key.toUpperCase() : key.toLowerCase();
         if (soundEnabled) {
             if (mappedSound)
                 sound.play(mappedSound);
@@ -124,8 +127,13 @@ document.addEventListener('keydown', keyEv => {
         window.setTimeout(() => {
             letter.style.color = randomColor();
             letter.textContent = key;
-            let scale = key == 'Q' ? 0.9 : 1.0;
-            console.log(scale);
+            let scale = 1.0;
+            if (!letterUppercase) {
+                scale = 0.8;
+            } else {
+                if (key == 'Q')
+                    scale = 0.9;
+            }
             letter.style.fontSize = ch * scale + 'px';
         }, 200);
     } else if (soundEnabled) {
