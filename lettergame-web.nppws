@@ -1,0 +1,7 @@
+<NotepadPlus>
+    <Project name="lettergame-web">
+        <File name="lettergame.css" />
+        <File name="lettergame.html" />
+        <File name="lettergame.js" />
+    </Project>
+</NotepadPlus>
