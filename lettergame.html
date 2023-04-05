@@ -10,17 +10,19 @@
     let howlParams = {
         src: ['lettergame-sounds.mp3'],
         sprite: {
-            'boing': [108, 965],
-            'googoo': [9692, 1449],
-            'note1': [1621, 996],
-            'note2': [3185, 1106],
-            'note3': [4854, 1168],
-            'note4': [6538, 988],
-            'note5': [8053, 1094]
+            'boing'  : [108, 965],
+            'googoo' : [9692, 1449],
+            'note1'  : [1621, 996],
+            'note2'  : [3185, 1106],
+            'note3'  : [4854, 1168],
+            'note4'  : [6538, 988],
+            'note5'  : [8053, 1094],
+            'umm'    : [11224, 2046]
         }
     };
     let keySoundMap = new Map([
-        ["Space", "googoo"]
+        ["Space", "googoo"],
+        ["KeyH",  "umm"]
     ]);
     let otherSound = 'boing';
     let notes = ['note1', 'note2', 'note3', 'note4', 'note5'];
